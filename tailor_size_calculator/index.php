@@ -1,472 +1,533 @@
-<style>
-    #measureme {
-        margin: 0px auto;
-        padding: 10px 20px 10px 20px;
-        max-width: 450px;
-    }
-
-    #measureme .inputmeasure {
-        width: 58px;
-        text-align: center;
-    }
-
-    #measureme input {
-        height: 25px;
-    }
-
-    #measureme .btnft {
-        cursor: pointer;
-        background: #000;
-        color: #fff;
-        padding: 8px;
-        height: 43px;
-        border: 1px solid #000;
-        margin: 5px 0;
-    }
-
-    #measureme .btnsmft {
-        cursor: pointer;
-        margin: 5px 0;
-        background: #ca9a30;
-        color: #fff;
-        padding: 8px;
-        border: 1px solid #d79f25;
-        height: 43px;
-    }
-
-    #measureme .btnrg {
-        cursor: pointer;
-        margin: 5px 0;
-        background: #000;
-        color: #fff;
-        padding: 8px;
-        border: 1px solid #000;
-        height: 43px;
-    }
-
-    #measureme button {
-        padding: 10px 9px;
-        margin-bottom: 5px;
-        font-weight: bold;
-    }
-
-    @media screen and (max-device-width:480px) {
-        #measureme button {
-            padding: 10px 6px;
-            margin-bottom: 5px;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ 
+    <style>
+        #measureme {
+            margin: 0px auto;
+            padding: 10px 5px;
+            max-width: 440px !important;
         }
-    }
 
-    .calculbuttons {
-        border-radius: 4px;
-        background-color: #d79f25;
-        color: black;
-        border: none;
-        font-weight: 700 !important;
-    }
+        #measureme input {
+            height: 35px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+        }
 
-    .calculbuttons:hover {
-        background-color: grey !important;
-    }
-</style>
+        #measureme .form {
+            flex: 1;
+            min-width: 0;
+        }
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        #measureme button {
+            margin-bottom: 5px;
+            font-weight: bold;
+            padding: 10px 15px;
+            white-space: nowrap;
+        }
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="wpb_wrapper">
+        .calculbuttons {
+            border-radius: 4px;
+            background-color: #d79f25;
+            color: black;
+            border: none;
+            font-weight: 700 !important;
+            padding: 10px 20px !important;
+            font-size: 14px;
+        }
 
+        .calculbuttons:hover,
+        .calculbuttons:active,
+        .calculbuttons:focus {
+            background-color: grey !important;
+        }
 
-                <div style="margin-top: 15px;">
+        .header-section {
+            color: #ca9a30;
+            background: #000;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
 
-                    <div id="measureme">
-                        <p style="color: #ca9a30;background: #000;padding: 15px 15px;border-radius:5px;">
-                            <b style="font-size: 14px;">NECK (*Inch):</b>
-                            <input style="padding: 0px;width: 45px;text-align: center; margin-right: 8px; background: #2a2a2a;font-weight: bold;color: #eee;" type="text" id="NECK1" value="16.0" onkeyup="playAudio2();" name="NECK1">
-                            <b style="font-size: 14px;">HEIGHT:</b>
-                            <input type="text" style="text-align: center; padding: 0px;width: 17px;background: #2a2a2a;font-weight: bold;color: #eee;" id="HEIGHT1" value="5" onkeyup="playAudio2();" name="HEIGHT1">
-                            <b style="font-size: 14px;">*ft </b>
-                            <input type="text" style="text-align: center; padding: 0px;width: 30px;background: #2a2a2a;font-weight: bold;color: #eee;" id="HEIGHT2" value="8.4" onkeyup="playAudio2();" name="HEIGHT2">
-                            <b style="font-size: 14px;">*Inch</b>
-                        </p>
+        .header-section input {
+            background: #2a2a2a;
+            font-weight: bold;
+            color: #eee;
+            border: none;
+        }
 
+        .header-inputs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
 
-                        <p style="padding: 7px 7px;border-radius:5px;">
+        .header-section .input-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            /*flex-wrap: wrap;*/
+        }
 
-                            <span style="display: flex;">
-                                <b style="font-size: 14px;color:gray">SHOULDER</b>
-                                <span class="ms-1 me-1">:</span> <input class="form" style="width: 100%;color:#4C4C4C" type="text" id="SHLDR" name="SHLDR">
-                            </span>
+        .header-section label,
+        .header-section span {
+            white-space: nowrap;
+        }
 
+        .measurement-row {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
 
-                            <span class="mt-4" style="display: flex;">
-                                <b style="font-size: 14px;color:gray">SLEEVES</b>
-                                <span class="ms-1 me-1">:</span> <input class="form" style="width: 30%;color:#4C4C4C" type="text" id="SLV" name="SLV">
+        .measurement-row label {
+            font-size: 13px;
+            color: gray;
+            font-weight: bold;
+            white-space: nowrap;
+        }
 
-                                <b style="font-size: 14px;color:gray" class="ms-2">SHAPE</b>
-                                <span class="ms-1 me-1">:</span> <input class="inputmeasure" style="width: 30%;color:#4C4C4C" type="text" id="Shape_Top" name="Shape_Top">
-                                <span class="ms-1 me-1">:</span> <input class="inputmeasure" style="width: 30%;color:#4C4C4C" type="text" id="Shape_Bottom" name="Shape_Bottom">
+        .measurement-row .separator {
+            margin: 0 3px;
+        }
 
-                            </span>
+        .button-group {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+         @media screen and (max-width: 464px) {
+             
+             #NECK1{
+              width: 100%!important;   
+             }
+             #HEIGHT1{
+                 width: 50%!important;   
+             }
+             
+             #HEIGHT2{
+                  width: 50%!important;  
+             }
+             .header-inputs{
+                 flex-direction: column
+             }
+             
+      
+         }   
 
-                            <span class="mt-4" style="display: flex;">
-                                <b style="font-size: 14px;color:gray">CUFF 180*</b>
-                                <span class="ms-1 me-1">:</span> <input class="form" style="width: 80%;color:#4C4C4C" type="text" id="CUFF" name="CUFF">
-                            </span>
+        /* Mobile Responsive */
+        @media screen and (max-width: 576px) {
+            #measureme {
+                padding: 10px;
+            }
 
+            .header-section {
+                padding: 12px;
+            }
 
-                            <span class="mt-4" style="display: flex;">
-                                <b style="font-size: 14px;color:gray">CHEST 360*</b>
-                                <span class="ms-1 me-1">:</span> <input class="form" style="width: 77%;color:#4C4C4C" type="text" id="CHEST360" name="CHEST360">
-                            </span>
+            .header-inputs {
+                /*flex-direction: column;*/
+                align-items: stretch;
+                gap: 12px;
+            }
 
-                            <span class="mt-4" style="display: flex;">
-                                <b style="font-size: 14px;color:gray">CHEST</b>
-                                <span class="ms-1 me-1">:</span> <input class="form" style="width: 30%;color:#4C4C4C" type="text" id="CHEST" name="CHEST">
+            /*.header-section .input-group {*/
+            /*    justify-content: space-between;*/
+            /*}*/
 
-                                <b style="font-size: 14px;color:gray" class="ms-2">WAIST</b>
-                                <span class="ms-1 me-1">:</span> <input class="form" style="width: 30%;color:#4C4C4C" type="text" id="WAIST" name="WAIST">
+            .header-section label {
+                font-size: 13px;
+            }
 
-                                <b style="font-size: 14px;color:gray" class="ms-2">DAMAN</b>
-                                <span class="ms-1 me-1">:</span> <input class="form" style="width: 30%;color:#4C4C4C" type="text" id="DAMAN" name="DAMAN">
+            .header-section span {
+                font-size: 13px;
+            }
 
-                            </span>
+            .measurement-row {
+                margin-top: 12px;
+            }
 
-                            <span class="mt-4" style="display: flex;">
-                                <b style="font-size: 14px;color:gray">PATTI</b>
-                                <span class="ms-1 me-1">:</span> <input class="form" style="width: 88%;color:#4C4C4C" type="text" id="PATTI" name="PATTI">
-                            </span>
+            .measurement-row label {
+                font-size: 12px;
+                min-width: fit-content;
+            }
 
+            .measurement-row input {
+                height: 32px;
+                font-size: 14px;
+            }
 
-                            <span class="mt-4" style="display: flex;">
-                                <b style="font-size: 14px;color:gray">ARMHOLE 180*</b>
-                                <span class="ms-1 me-1">:</span> <input style="width: 71%;color:#4C4C4C" type="text" id="Armhole" name="Armhole">
-                            </span>
+            .calculbuttons {
+                padding: 10px 12px !important;
+                font-size: 12px;
+                flex: 1;
+                min-width: 90px;
+            }
 
+            .button-group {
+                gap: 5px;
+            }
+        }
 
-                            <span class="mt-4" style="display: flex;">
-                                <b style="font-size: 14px;color:gray">KAMEEZ | ON KNEES</b>
-                                <span class="ms-1 me-1">:</span> <input class="form" style="width: 20%;color:#4C4C4C" type="text" id="ONKNEES" name="ONKNEES">
+        /* Extra small screens */
+        @media screen and (max-width: 380px) {
+            .calculbuttons {
+                font-size: 11px;
+                padding: 8px 10px !important;
+                min-width: 80px;
+            }
 
-                                <b style="font-size: 14px;color:gray" class="ms-1">OFF KNEES</b>
-                                <span class="ms-1 me-1">:</span> <input class="form" style="width: 20%;color:#4C4C4C" type="text" id="OFFKNEES" name="OFFKNEES">
-
-                            </span>
-
-
-                            <span class="mt-4" style="display: flex;">
-                                <b style="font-size: 14px;color:gray">SHALWAR</b>
-                                <span class="ms-1 me-1">:</span> <input class="form" style="width: 27%;color:#4C4C4C" type="text" id="SHALWAR" name="SHALWAR">
-
-                                <b style="font-size: 14px;color:gray" class="ms-2">PAICHA 180*</b>
-                                <span class="ms-1 me-1">:</span> <input class="" style="width: 26%;color:#4C4C4C" type="text" id="PAICHA" name="PAICHA">
-
-                            </span>
-
-                            <span class="mt-4" style="display: flex; justify-content: center; gap: 34px;">
-                                <button class="calculbuttons" style="font-size: 14px;" onclick="measure_slim(); playAudio();">SLIM FIT</button>
-                                <button class="calculbuttons" style="font-size: 14px;" onclick="measure_smart(); playAudio();">SMART FIT</button>
-                                <button class="calculbuttons" style="font-size: 14px;" onclick="measure_regular(); playAudio();">REGULAR FIT</button>
-                            </span>
-
-
-
-
-
-
-
-
-                        </p>
-
+            .measurement-row label {
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div id="measureme">
+                    <div class="header-section">
+                        <div class="header-inputs">
+                            <div class="input-group">
+                                <label style="color: #ca9a30; font-size: 14px;"><b>NECK (*Inch):</b></label>
+                                <input type="text" id="NECK1" value="16.0" onkeyup="playAudio2();" name="NECK1" style="width: 60px; text-align: center;">
+                            </div>
+                            <div class="input-group">
+                                <label style="color: #ca9a30; font-size: 14px;"><b>HEIGHT:</b></label>
+                                <input type="text" id="HEIGHT1" value="5" onkeyup="playAudio2();" name="HEIGHT1" style="width: 40px; text-align: center;">
+                                <span style="color: #ca9a30; font-size: 14px;">
+                                <b>*ft</b></span>
+                                <input type="text" id="HEIGHT2" value="8.4" onkeyup="playAudio2();" name="HEIGHT2" style="width: 50px; text-align: center;">
+                                <span style="color: #ca9a30; font-size: 14px;"><b>*Inch</b></span>
+                            </div>
+                        </div>
                     </div>
 
+                    <div class="measurement-row">
+                        <label>SHOULDER</label>
+                        <span class="separator">:</span>
+                        <input class="form" type="text" id="SHLDR" name="SHLDR">
+                    </div>
 
+                    <div class="measurement-row">
+                        <label>SLEEVES</label>
+                        <span class="separator">:</span>
+                        <input class="form" type="text" id="SLV" name="SLV">
+                    </div>
 
+                    <div class="measurement-row">
+                        <label>SHAPE</label>
+                        <span class="separator">:</span>
+                        <input type="text" id="Shape_Top" name="Shape_Top" style="width: 80px; flex: 1;">
+                        <span class="separator">:</span>
+                        <input type="text" id="Shape_Bottom" name="Shape_Bottom" style="width: 80px; flex: 1;">
+                    </div>
 
+                    <div class="measurement-row">
+                        <label>CUFF180*</label>
+                        <span class="separator">:</span>
+                        <input type="text" id="CUFF" name="CUFF" style="width: 80px; flex: 1;">
+                        <label class="separator">CHEST360:</label>
+                        <input type="text" id="CHEST360" name="CHEST360" style="width: 80px; flex: 1;">
+                    </div>
+
+                    <div class="measurement-row">
+                        <label>CHEST</label>
+                        <span class="separator">:</span>
+                        <input class="form" type="text" id="CHEST" name="CHEST" style="max-width: 155px;">
+                        <label class="ms-2">WAIST</label>
+                        <span class="separator">:</span>
+                        <input class="form" type="text" id="WAIST" name="WAIST" style="max-width: 155px;">
+                    </div>
+
+                    <div class="measurement-row">
+                        <label>DAMAN</label>
+                        <span class="separator">:</span>
+                        <input type="text" id="DAMAN" name="DAMAN" style="width: 80px; flex: 1;">
+                        <label class="separator">PATTI:</label>
+                        <input type="text" id="PATTI" name="PATTI" style="width: 80px; flex: 1;">
+                    </div>
+
+                    <div class="measurement-row">
+                        <label>ARMHOLE180*</label>
+                        <span class="separator">:</span>
+                        <input class="form" type="text" id="Armhole" name="Armhole">
+                    </div>
+
+                    <div class="measurement-row">
+                        <label>KAMEEZ|ON KNEES</label>
+                        <span class="separator">:</span>
+                        <input class="form" type="text" id="ONKNEES" name="ONKNEES" style="max-width: 100px;">
+                        <label class="ms-1">OFFKNEES</label>
+                        <span class="separator">:</span>
+                        <input class="form" type="text" id="OFFKNEES" name="OFFKNEES" style="max-width: 100px;">
+                    </div>
+
+                    <div class="measurement-row">
+                        <label>SHALWAR</label>
+                        <span class="separator">:</span>
+                        <input class="form" type="text" id="SHALWAR" name="SHALWAR" style="max-width: 122px;">
+                        <label class="ms-2">PAICHA180*</label>
+                        <span class="separator">:</span>
+                        <input class="form" type="text" id="PAICHA" name="PAICHA" style="max-width: 122px;">
+                    </div>
+
+                    <div class="button-group">
+                        <button class="calculbuttons" onclick="measure_slim(); playAudio();">SLIM FIT</button>
+                        <button class="calculbuttons" onclick="measure_smart(); playAudio();">SMART FIT</button>
+                        <button class="calculbuttons" onclick="measure_regular(); playAudio();">REGULAR FIT</button>
+                    </div>
                 </div>
 
-
-                <p><audio id="audio">
-                        <source src="voice2.mp3" type="audio/mpeg" />
-                    </audio><br />
-                    <audio id="audio2">
-                        <source src="voice1.mp3" type="audio/mpeg" />
-                    </audio>
-                </p>
-
-
+                <audio id="audio">
+                    <source src="voice2.mp3" type="audio/mpeg" />
+                </audio>
+                <audio id="audio2">
+                    <source src="voice1.mp3" type="audio/mpeg" />
+                </audio>
             </div>
         </div>
     </div>
-</div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        function measure_smart() {
+            var NECK2 = parseFloat(document.getElementById("NECK1").value);
+            var HEIGHT1 = parseFloat(document.getElementById("HEIGHT1").value);
+            var HEIGHT2 = parseFloat(document.getElementById("HEIGHT2").value);
 
-<script type="text/javascript">
-    // SMART FITTING
-    function measure_smart() {
-        var NECK2 = parseFloat(document.getElementById("NECK1").value);
-        var HEIGHT1 = parseFloat(document.getElementById("HEIGHT1").value);
-        var HEIGHT2 = parseFloat(document.getElementById("HEIGHT2").value);
+            var height22 = (HEIGHT1 * 12) + HEIGHT2;
+            var SHLDR = NECK2 + 2;
+            var slv1 = (NECK2 * 2.5) / 2
+            var SLV = (height22 - slv1) / 2;
+            var Shape_Top = NECK2 / 2;
+            var Shape_Bottom = Shape_Top - 1.5;
+            var CUFF = (NECK2 + 2) / 2;
+            var CHEST360 = (NECK2 * 2.47);
+            if (NECK2 < 16) {
+                CHEST360 = NECK2 * 2.35;
+            }
+            var CHEST = (CHEST360 + 6) / 2;
+            var WAIST = CHEST - 1;
+            var DAMAN = CHEST;
+            var PATTI = NECK2;
+            var Armhole = CHEST360 / 4;
+            var PAICHA = 8;
+            var OFFKNEES = height22 - (height22 / 8) * 3;
+            var ONKNEES = OFFKNEES - 3;
+            var SHALWAR = (height22 / 8) * 4.6;
 
-        var height22 = (HEIGHT1 * 12) + HEIGHT2;
-        var SHLDR = NECK2 + 2;
-        var slv1 = (NECK2 * 2.5) / 2
-        var SLV = (height22 - slv1) / 2;
-        var Shape_Top = NECK2 / 2;
-        var Shape_Bottom = Shape_Top - 1.5;
-        var CUFF = (NECK2 + 2) / 2;
-        var CHEST360 = (NECK2 * 2.47);
-        if (NECK2 < 16) {
-            CHEST360 = NECK2 * 2.35;
-        }
-        var CHEST = (CHEST360 + 6) / 2;
-        var WAIST = CHEST - 1;
-        var DAMAN = CHEST;
-        var PATTI = NECK2;
-        var Armhole = CHEST360 / 4;
-        var PAICHA = 8;
+            if (NECK2 < 15 && height22 > 66) {
+                CUFF = CUFF + 0.5;
+                PATTI = NECK2 + 1.5;
+            }
+            if (NECK2 < 15 && height22 > 68.4) {
+                SHLDR = NECK2 + 2.5;
+                CUFF = CUFF + 0.5;
+                PATTI = NECK2 + 1.5;
+            }
+            if (NECK2 > 16 && height22 < 70.2) {
+                PATTI = NECK2 - 0.5;
+            }
+            if (NECK2 < 15) {
+                PAICHA = 7.5;
+            }
+            if (NECK2 > 17) {
+                SHLDR = NECK2 + 2.5;
+                PAICHA = 8.5;
+                PATTI = NECK2 - 0.5;
+                CHEST = (CHEST360 + 6.5) / 2;
+                WAIST = CHEST - 1;
+                DAMAN = CHEST;
+                CUFF = (NECK2 + 2.5) / 2;
+            }
+            if (NECK2 > 18) {
+                PAICHA = 9;
+                PATTI = NECK2 - 1;
+                CHEST = (CHEST360 + 7) / 2;
+                WAIST = CHEST - 1;
+                DAMAN = CHEST;
+            }
 
-        // Below Ankles
-        var OFFKNEES = height22 - (height22 / 8) * 3;
-        //Above ankles 
-        var ONKNEES = OFFKNEES - 3;
-
-        var SHALWAR = (height22 / 8) * 4.6;
-
-        if (NECK2 < 15 && height22 > 66) {
-            CUFF = CUFF + 0.5;
-            PATTI = NECK2 + 1.5;
-        }
-
-        if (NECK2 < 15 && height22 > 68.4) {
-            SHLDR = NECK2 + 2.5;
-            CUFF = CUFF + 0.5;
-            PATTI = NECK2 + 1.5;
-        }
-
-        if (NECK2 > 16 && height22 < 70.2) {
-            PATTI = NECK2 - 0.5;
-        }
-
-        if (NECK2 < 15) {
-            PAICHA = 7.5;
-        }
-
-
-        if (NECK2 > 17) {
-            SHLDR = NECK2 + 2.5;
-            PAICHA = 8.5;
-            PATTI = NECK2 - 0.5;
-            CHEST = (CHEST360 + 6.5) / 2;
-            WAIST = CHEST - 1;
-            DAMAN = CHEST;
-            CUFF = (NECK2 + 2.5) / 2;
-        }
-
-        if (NECK2 > 18) {
-            PAICHA = 9;
-            PATTI = NECK2 - 1;
-            CHEST = (CHEST360 + 7) / 2;
-            WAIST = CHEST - 1;
-            DAMAN = CHEST;
-        }
-
-
-        document.getElementById("SHLDR").value = SHLDR.toFixed(2);
-        document.getElementById("SLV").value = SLV.toFixed(2);
-        document.getElementById("CUFF").value = CUFF.toFixed(2);
-        document.getElementById("CHEST360").value = CHEST360.toFixed(2);
-        document.getElementById("CHEST").value = CHEST.toFixed(2);
-        document.getElementById("WAIST").value = WAIST.toFixed(2);
-        document.getElementById("DAMAN").value = DAMAN.toFixed(2);
-        document.getElementById("PATTI").value = PATTI.toFixed(2);
-        document.getElementById("PAICHA").value = PAICHA.toFixed(2);
-        document.getElementById("OFFKNEES").value = OFFKNEES.toFixed(2);
-        document.getElementById("ONKNEES").value = ONKNEES.toFixed(2);
-        document.getElementById("SHALWAR").value = SHALWAR.toFixed(2);
-        document.getElementById("Armhole").value = Armhole.toFixed(2);
-        document.getElementById("Shape_Top").value = Shape_Top.toFixed(2);
-        document.getElementById("Shape_Bottom").value = Shape_Bottom.toFixed(2);
-
-    };
-
-
-    // SLIM FITTING
-    function measure_slim() {
-        var NECK2 = parseFloat(document.getElementById("NECK1").value);
-        var HEIGHT1 = parseFloat(document.getElementById("HEIGHT1").value);
-        var HEIGHT2 = parseFloat(document.getElementById("HEIGHT2").value);
-
-        var height22 = (HEIGHT1 * 12) + HEIGHT2;
-        var SHLDR = NECK2 + 2;
-        var slv1 = (NECK2 * 2.5) / 2
-        var SLV = (height22 - slv1) / 2;
-        var Shape_Top = NECK2 / 2 - 0.5;
-        var Shape_Bottom = Shape_Top - 1.5;
-        var CUFF = (NECK2 + 2) / 2;
-        var CHEST360 = (NECK2 * 2.47);
-        if (NECK2 < 16) {
-            CHEST360 = NECK2 * 2.35;
-        }
-        var CHEST = (CHEST360 + 4) / 2;
-        var WAIST = CHEST - 1;
-        var DAMAN = CHEST;
-        var PATTI = NECK2;
-        var Armhole = (CHEST360 / 4) - 0.5;
-        var PAICHA = 8;
-
-        // Below Ankles
-        var OFFKNEES = height22 - (height22 / 8) * 3;
-        //Above ankles 
-        var ONKNEES = OFFKNEES - 3;
-
-        var SHALWAR = (height22 / 8) * 4.5;
-
-        if (NECK2 < 15 && height22 > 66) {
-            CUFF = CUFF + 0.5;
-            PATTI = NECK2 + 1.5;
+            document.getElementById("SHLDR").value = SHLDR.toFixed(2);
+            document.getElementById("SLV").value = SLV.toFixed(2);
+            document.getElementById("CUFF").value = CUFF.toFixed(2);
+            document.getElementById("CHEST360").value = CHEST360.toFixed(2);
+            document.getElementById("CHEST").value = CHEST.toFixed(2);
+            document.getElementById("WAIST").value = WAIST.toFixed(2);
+            document.getElementById("DAMAN").value = DAMAN.toFixed(2);
+            document.getElementById("PATTI").value = PATTI.toFixed(2);
+            document.getElementById("PAICHA").value = PAICHA.toFixed(2);
+            document.getElementById("OFFKNEES").value = OFFKNEES.toFixed(2);
+            document.getElementById("ONKNEES").value = ONKNEES.toFixed(2);
+            document.getElementById("SHALWAR").value = SHALWAR.toFixed(2);
+            document.getElementById("Armhole").value = Armhole.toFixed(2);
+            document.getElementById("Shape_Top").value = Shape_Top.toFixed(2);
+            document.getElementById("Shape_Bottom").value = Shape_Bottom.toFixed(2);
         }
 
-        if (NECK2 < 15 && height22 > 68.4) {
-            SHLDR = NECK2 + 2.5;
-            CUFF = CUFF + 0.5;
-            PATTI = NECK2 + 1.5;
+        function measure_slim() {
+            var NECK2 = parseFloat(document.getElementById("NECK1").value);
+            var HEIGHT1 = parseFloat(document.getElementById("HEIGHT1").value);
+            var HEIGHT2 = parseFloat(document.getElementById("HEIGHT2").value);
+
+            var height22 = (HEIGHT1 * 12) + HEIGHT2;
+            var SHLDR = NECK2 + 2;
+            var slv1 = (NECK2 * 2.5) / 2
+            var SLV = (height22 - slv1) / 2;
+            var Shape_Top = NECK2 / 2 - 0.5;
+            var Shape_Bottom = Shape_Top - 1.5;
+            var CUFF = (NECK2 + 2) / 2;
+            var CHEST360 = (NECK2 * 2.47);
+            if (NECK2 < 16) {
+                CHEST360 = NECK2 * 2.35;
+            }
+            var CHEST = (CHEST360 + 4) / 2;
+            var WAIST = CHEST - 1;
+            var DAMAN = CHEST;
+            var PATTI = NECK2;
+            var Armhole = (CHEST360 / 4) - 0.5;
+            var PAICHA = 8;
+            var OFFKNEES = height22 - (height22 / 8) * 3;
+            var ONKNEES = OFFKNEES - 3;
+            var SHALWAR = (height22 / 8) * 4.5;
+
+            if (NECK2 < 15 && height22 > 66) {
+                CUFF = CUFF + 0.5;
+                PATTI = NECK2 + 1.5;
+            }
+            if (NECK2 < 15 && height22 > 68.4) {
+                SHLDR = NECK2 + 2.5;
+                CUFF = CUFF + 0.5;
+                PATTI = NECK2 + 1.5;
+            }
+            if (NECK2 < 15) {
+                PAICHA = 7.5;
+            }
+            if (NECK2 > 17) {
+                SHLDR = NECK2 + 2.5;
+                PAICHA = 8.5;
+                PATTI = NECK2 - 0.5;
+                CHEST = (CHEST360 + 4.5) / 2;
+                WAIST = CHEST - 1;
+                DAMAN = CHEST;
+                CUFF = (NECK2 + 2.5) / 2;
+            }
+            if (NECK2 > 18) {
+                PAICHA = 9;
+                PATTI = NECK2 - 1;
+                CHEST = (CHEST360 + 5) / 2;
+                WAIST = CHEST - 1;
+                DAMAN = CHEST;
+            }
+
+            document.getElementById("SHLDR").value = SHLDR.toFixed(2);
+            document.getElementById("SLV").value = SLV.toFixed(2);
+            document.getElementById("CUFF").value = CUFF.toFixed(2);
+            document.getElementById("CHEST360").value = CHEST360.toFixed(2);
+            document.getElementById("CHEST").value = CHEST.toFixed(2);
+            document.getElementById("WAIST").value = WAIST.toFixed(2);
+            document.getElementById("DAMAN").value = DAMAN.toFixed(2);
+            document.getElementById("PATTI").value = PATTI.toFixed(2);
+            document.getElementById("PAICHA").value = PAICHA.toFixed(2);
+            document.getElementById("OFFKNEES").value = OFFKNEES.toFixed(2);
+            document.getElementById("ONKNEES").value = ONKNEES.toFixed(2);
+            document.getElementById("SHALWAR").value = SHALWAR.toFixed(2);
+            document.getElementById("Armhole").value = Armhole.toFixed(2);
+            document.getElementById("Shape_Top").value = Shape_Top.toFixed(2);
+            document.getElementById("Shape_Bottom").value = Shape_Bottom.toFixed(2);
         }
 
-        if (NECK2 < 15) {
-            PAICHA = 7.5;
+        function measure_regular() {
+            var NECK2 = parseFloat(document.getElementById("NECK1").value);
+            var HEIGHT1 = parseFloat(document.getElementById("HEIGHT1").value);
+            var HEIGHT2 = parseFloat(document.getElementById("HEIGHT2").value);
+
+            var height22 = (HEIGHT1 * 12) + HEIGHT2;
+            var SHLDR = NECK2 + 2;
+            var slv1 = (NECK2 * 2.5) / 2
+            var SLV = (height22 - slv1) / 2;
+            var Shape_Top = (NECK2 / 2) + 0.5;
+            var Shape_Bottom = Shape_Top - 1.5;
+            var CUFF = (NECK2 + 3) / 2;
+            var CHEST360 = (NECK2 * 2.47);
+            if (NECK2 < 16) {
+                CHEST360 = NECK2 * 2.35;
+            }
+            var CHEST = (CHEST360 + 8) / 2;
+            var WAIST = CHEST - 1;
+            var DAMAN = CHEST + 0.5;
+            var PATTI = NECK2;
+            var Armhole = (CHEST360 / 4) + 1;
+            var PAICHA = 8;
+            var OFFKNEES = height22 - (height22 / 8) * 3;
+            var ONKNEES = OFFKNEES - 3;
+            var SHALWAR = (height22 / 8) * 4.6;
+
+            if (NECK2 < 15 && height22 > 66) {
+                PATTI = NECK2 + 1.5;
+            }
+            if (NECK2 < 15 && height22 > 68.4) {
+                SHLDR = NECK2 + 2.5;
+                PATTI = NECK2 + 1.5;
+            }
+            if (NECK2 < 15) {
+                PAICHA = 7.5;
+            }
+            if (NECK2 > 17) {
+                SHLDR = NECK2 + 2.5;
+                PAICHA = 8;
+                PATTI = NECK2 - 0.5;
+                CHEST = (CHEST360 + 8.5) / 2;
+                WAIST = CHEST - 1;
+                DAMAN = CHEST + 0.5;
+            }
+            if (NECK2 > 18) {
+                PAICHA = 9;
+                PATTI = NECK2 - 1;
+                CHEST = (CHEST360 + 9) / 2;
+                WAIST = CHEST - 1;
+                DAMAN = CHEST + 0.5;
+            }
+
+            document.getElementById("SHLDR").value = SHLDR.toFixed(2);
+            document.getElementById("SLV").value = SLV.toFixed(2);
+            document.getElementById("CUFF").value = CUFF.toFixed(2);
+            document.getElementById("CHEST360").value = CHEST360.toFixed(2);
+            document.getElementById("CHEST").value = CHEST.toFixed(2);
+            document.getElementById("WAIST").value = WAIST.toFixed(2);
+            document.getElementById("DAMAN").value = DAMAN.toFixed(2);
+            document.getElementById("PATTI").value = PATTI.toFixed(2);
+            document.getElementById("PAICHA").value = PAICHA.toFixed(2);
+            document.getElementById("OFFKNEES").value = OFFKNEES.toFixed(2);
+            document.getElementById("ONKNEES").value = ONKNEES.toFixed(2);
+            document.getElementById("SHALWAR").value = SHALWAR.toFixed(2);
+            document.getElementById("Armhole").value = Armhole.toFixed(2);
+            document.getElementById("Shape_Top").value = Shape_Top.toFixed(2);
+            document.getElementById("Shape_Bottom").value = Shape_Bottom.toFixed(2);
         }
 
-
-        if (NECK2 > 17) {
-            SHLDR = NECK2 + 2.5;
-            PAICHA = 8.5;
-            PATTI = NECK2 - 0.5;
-            CHEST = (CHEST360 + 4.5) / 2;
-            WAIST = CHEST - 1;
-            DAMAN = CHEST;
-            CUFF = (NECK2 + 2.5) / 2;
+        function playAudio2() {
+            var s = document.getElementById("audio2");
+            s.play();
         }
 
-        if (NECK2 > 18) {
-            PAICHA = 9;
-            PATTI = NECK2 - 1;
-            CHEST = (CHEST360 + 5) / 2;
-            WAIST = CHEST - 1;
-            DAMAN = CHEST;
+        function playAudio() {
+            var s = document.getElementById("audio");
+            s.play();
         }
-
-
-        document.getElementById("SHLDR").value = SHLDR.toFixed(2);
-        document.getElementById("SLV").value = SLV.toFixed(2);
-        document.getElementById("CUFF").value = CUFF.toFixed(2);
-        document.getElementById("CHEST360").value = CHEST360.toFixed(2);
-        document.getElementById("CHEST").value = CHEST.toFixed(2);
-        document.getElementById("WAIST").value = WAIST.toFixed(2);
-        document.getElementById("DAMAN").value = DAMAN.toFixed(2);
-        document.getElementById("PATTI").value = PATTI.toFixed(2);
-        document.getElementById("PAICHA").value = PAICHA.toFixed(2);
-        document.getElementById("OFFKNEES").value = OFFKNEES.toFixed(2);
-        document.getElementById("ONKNEES").value = ONKNEES.toFixed(2);
-        document.getElementById("SHALWAR").value = SHALWAR.toFixed(2);
-        document.getElementById("Armhole").value = Armhole.toFixed(2);
-        document.getElementById("Shape_Top").value = Shape_Top.toFixed(2);
-        document.getElementById("Shape_Bottom").value = Shape_Bottom.toFixed(2);
-
-    };
-
-    // REGULAR FITTING
-
-    function measure_regular() {
-        var NECK2 = parseFloat(document.getElementById("NECK1").value);
-        var HEIGHT1 = parseFloat(document.getElementById("HEIGHT1").value);
-        var HEIGHT2 = parseFloat(document.getElementById("HEIGHT2").value);
-
-        var height22 = (HEIGHT1 * 12) + HEIGHT2;
-        var SHLDR = NECK2 + 2;
-        var slv1 = (NECK2 * 2.5) / 2
-        var SLV = (height22 - slv1) / 2;
-        var Shape_Top = (NECK2 / 2) + 0.5;
-        var Shape_Bottom = Shape_Top - 1.5;
-        var CUFF = (NECK2 + 3) / 2;
-        var CHEST360 = (NECK2 * 2.47);
-        if (NECK2 < 16) {
-            CHEST360 = NECK2 * 2.35;
-        }
-        var CHEST = (CHEST360 + 8) / 2;
-        var WAIST = CHEST - 1;
-        var DAMAN = CHEST + 0.5;
-        var PATTI = NECK2;
-        var Armhole = (CHEST360 / 4) + 1;
-        var PAICHA = 8;
-
-        // Below Ankles
-        var OFFKNEES = height22 - (height22 / 8) * 3;
-        //Above ankles 
-        var ONKNEES = OFFKNEES - 3;
-
-        var SHALWAR = (height22 / 8) * 4.6;
-
-        if (NECK2 < 15 && height22 > 66) {
-            PATTI = NECK2 + 1.5;
-        }
-
-        if (NECK2 < 15 && height22 > 68.4) {
-            SHLDR = NECK2 + 2.5;
-            PATTI = NECK2 + 1.5;
-        }
-
-        if (NECK2 < 15) {
-            PAICHA = 7.5;
-        }
-
-
-        if (NECK2 > 17) {
-            SHLDR = NECK2 + 2.5;
-            PAICHA = 8;
-            PATTI = NECK2 - 0.5;
-            CHEST = (CHEST360 + 8.5) / 2;
-            WAIST = CHEST - 1;
-            DAMAN = CHEST + 0.5;
-        }
-
-        if (NECK2 > 18) {
-            PAICHA = 9;
-            PATTI = NECK2 - 1;
-            CHEST = (CHEST360 + 9) / 2;
-            WAIST = CHEST - 1;
-            DAMAN = CHEST + 0.5;
-        }
-
-
-        document.getElementById("SHLDR").value = SHLDR.toFixed(2);
-        document.getElementById("SLV").value = SLV.toFixed(2);
-        document.getElementById("CUFF").value = CUFF.toFixed(2);
-        document.getElementById("CHEST360").value = CHEST360.toFixed(2);
-        document.getElementById("CHEST").value = CHEST.toFixed(2);
-        document.getElementById("WAIST").value = WAIST.toFixed(2);
-        document.getElementById("DAMAN").value = DAMAN.toFixed(2);
-        document.getElementById("PATTI").value = PATTI.toFixed(2);
-        document.getElementById("PAICHA").value = PAICHA.toFixed(2);
-        document.getElementById("OFFKNEES").value = OFFKNEES.toFixed(2);
-        document.getElementById("ONKNEES").value = ONKNEES.toFixed(2);
-        document.getElementById("SHALWAR").value = SHALWAR.toFixed(2);
-        document.getElementById("Armhole").value = Armhole.toFixed(2);
-        document.getElementById("Shape_Top").value = Shape_Top.toFixed(2);
-        document.getElementById("Shape_Bottom").value = Shape_Bottom.toFixed(2);
-
-    };
-
-    function playAudio2() {
-        var s = document.getElementById("audio2");
-        s.play();
-    };
-
-    function playAudio() {
-        var s = document.getElementById("audio");
-        s.play();
-    };
-</script>
+    </script>
+</body>
+</html>
